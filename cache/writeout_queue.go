@@ -33,7 +33,7 @@ func (q *WriteoutQueue) makeRebuildCallback(nextRebuildTime time.Time) func(chan
 	var nextRebuildOnce sync.Once
 	nextRebuildComplete := make(chan bool)
 
-	nextRebuild := func(abort chan bool) chan bool {
+	nextRebuild := func(abort <-chan bool) chan bool {
 		// next rebuild
 		nextRebuildOnce.Do(func() {
 			now := time.Now()

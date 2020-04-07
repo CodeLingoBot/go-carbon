@@ -13,11 +13,11 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func makeRecvPopFromChan(ch chan *points.Points) (func(chan bool) string, func(string) (*points.Points, bool)) {
+func makeRecvPopFromChan(ch <-chan *points.Points) (func(chan bool) string, func(string) (*points.Points, bool)) {
 	cache := make(map[string]*points.Points)
 	var m sync.Mutex
 
-	recv := func(abort chan bool) string {
+	recv := func(abort <-chan bool) string {
 		select {
 		case <-abort:
 			return ""

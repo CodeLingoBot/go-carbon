@@ -6,7 +6,7 @@ import (
 	"time"
 )
 
-func Glue(exit chan bool, in chan *Points, chunkSize int, chunkTimeout time.Duration, callback func([]byte)) {
+func Glue(<-exit chan bool, <-in chan *Points, chunkSize int, chunkTimeout time.Duration, callback func([]byte)) {
 	var p *Points
 	var ok bool
 

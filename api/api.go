@@ -64,7 +64,7 @@ func (api *Api) Listen(addr *net.TCPAddr) error {
 		// Register reflection service on gRPC server.
 		reflection.Register(s)
 
-		api.Go(func(exit chan struct{}) {
+		api.Go(func(exit <-chan struct{}) {
 			<-exit
 			s.Stop()
 		})

@@ -162,7 +162,7 @@ func (q *Queue) Lag() time.Duration {
 	return res
 }
 
-func (q *Queue) sendAll(exit chan bool) {
+func (q *Queue) sendAll(exit <-chan bool) {
 	iter := q.db.NewIterator(nil, nil)
 	defer iter.Release()
 

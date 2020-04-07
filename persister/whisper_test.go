@@ -7,7 +7,7 @@ import (
 	"github.com/lomik/go-carbon/points"
 )
 
-func randomPoints(num int, out chan *points.Points) {
+func randomPoints(num int, out chan<- *points.Points) {
 	var letters = []rune("abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ")
 	var i int
 	for i = 0; i < num; i++ {

@@ -277,7 +277,7 @@ func (listener *CarbonlinkListener) Listen(addr *net.TCPAddr) error {
 
 		listener.tcpListener = tcpListener
 
-		listener.Go(func(exit chan bool) {
+		listener.Go(func(exit <-chan bool) {
 			select {
 			case <-exit:
 				tcpListener.Close()

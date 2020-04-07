@@ -62,7 +62,7 @@ func NewCollector(app *App) *Collector {
 		// sender worker
 		storeFunc := app.Cache.Add
 
-		c.Go(func(exit chan bool) {
+		c.Go(func(exit <-chan bool) {
 			for {
 				select {
 				case <-exit:
@@ -187,7 +187,7 @@ func NewCollector(app *App) *Collector {
 	}
 
 	// collector worker
-	c.Go(func(exit chan bool) {
+	c.Go(func(exit <-chan bool) {
 		ticker := time.NewTicker(c.metricInterval)
 		defer ticker.Stop()
 

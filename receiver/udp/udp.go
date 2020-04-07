@@ -157,7 +157,7 @@ func (rcv *UDP) Listen(addr *net.UDPAddr) error {
 			return err
 		}
 
-		rcv.Go(func(exit chan bool) {
+		rcv.Go(func(exit <-chan bool) {
 			<-exit
 			rcv.conn.Close()
 		})
@@ -165,7 +165,7 @@ func (rcv *UDP) Listen(addr *net.UDPAddr) error {
 		if rcv.buffer != nil {
 			originalOut := rcv.out
 
-			rcv.Go(func(exit chan bool) {
+			rcv.Go(func(exit <-chan bool) {
 				for {
 					select {
 					case <-exit:

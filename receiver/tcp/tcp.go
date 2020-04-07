@@ -191,7 +191,7 @@ func (rcv *TCP) HandleConnection(conn net.Conn) {
 	finished := make(chan bool)
 	defer close(finished)
 
-	rcv.Go(func(exit chan bool) {
+	rcv.Go(func(exit <-chan bool) {
 		select {
 		case <-finished:
 			return
@@ -257,7 +257,7 @@ func (rcv *TCP) handleFraming(conn net.Conn) {
 	finished := make(chan bool)
 	defer close(finished)
 
-	rcv.Go(func(exit chan bool) {
+	rcv.Go(func(<-exit chan bool) {
 		select {
 		case <-finished:
 			return
@@ -332,7 +332,7 @@ func (rcv *TCP) Listen(addr *net.TCPAddr) error {
 			return err
 		}
 
-		rcv.Go(func(exit chan bool) {
+		rcv.Go(func(exit <-chan bool) {
 			<-exit
 			tcpListener.Close()
 		})
@@ -345,7 +345,7 @@ func (rcv *TCP) Listen(addr *net.TCPAddr) error {
 		if rcv.buffer != nil {
 			originalOut := rcv.out
 
-			rcv.Go(func(exit chan bool) {
+			rcv.Go(func(exit <-chan bool) {
 				for {
 					select {
 					case <-exit:

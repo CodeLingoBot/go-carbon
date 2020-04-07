@@ -56,8 +56,8 @@ func newThrottleTicker(ratePerSec int, hard bool) *ThrottleTicker {
 	return t
 }
 
-func softThrottle(throttle chan bool, ratePerSec int) func(chan bool) {
-	return func(exit chan bool) {
+func softThrottle(throttle chan<- bool, ratePerSec int) func(chan bool) {
+	return func(exit <-chan bool) {
 		defer close(throttle)
 
 		delimeter := ratePerSec
@@ -100,8 +100,8 @@ func softThrottle(throttle chan bool, ratePerSec int) func(chan bool) {
 	}
 }
 
-func hardThrottle(throttle chan bool, ratePerSec int) func(chan bool) {
-	return func(exit chan bool) {
+func hardThrottle(throttle chan<- bool, ratePerSec int) func(chan bool) {
+	return func(exit <-chan bool) {
 		defer close(throttle)
 
 		tick := time.Now().Add(time.Second)
